@@ -237,8 +237,8 @@ interface MiddlewareError extends Error {
 
 /** JSDoc */
 function getStatusCodeFromResponse(error: MiddlewareError): number {
-  const statusCode = error.status || error.statusCode || error.status_code || (error.output && error.output.statusCode);
-  return statusCode ? parseInt(statusCode as string, 10) : 500;
+  const statusCode = parseInt((error.status || error.statusCode || error.status_code || (error.output && error.output.statusCode) )as string, 10);
+  return isNaN(statusCode) ? statusCode : 500;
 }
 
 /** Returns true if response code is internal server error */
